@@ -13,8 +13,19 @@ const TicketCard = () => {
           <DeleteBlock />
         </div>
       </div>
-      <ProgressDisplay />
-      <StatusDisplay />
+      <h4>Ticket Title</h4>
+      <hr className="h-px border-0 bg-page mb-2"></hr>
+      <p className="whitespace-pre-wrap">Ticket description</p>
+      <div className="flex-grow"></div>
+      <div className="flex mt-2">
+        <div className="flex flex-col">
+          <p className="text-xs my-1">08/31/23 10:43PM</p>
+          <ProgressDisplay />
+        </div>
+        <div className="ml-auto flex items-end">
+          <StatusDisplay />
+        </div>
+      </div>
     </div>
   );
 };
