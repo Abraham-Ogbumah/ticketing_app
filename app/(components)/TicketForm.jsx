@@ -3,24 +3,44 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const TicketForm = () => {
-    
-    const router = useRouter();
-  
-    const handleChange = async (e) => {
-    e.preventDefault();
-    const res = await fetch("/api/tickets", {
-        method: "POST",
-        body: JSON.stringify({formData}),
-        "content-type": "application/json"
-    })
+const TicketForm = ({ ticket }) => {
+  const EDITMODE = ticket._id === "new" ? false : true;
+  const router = useRouter();
 
-    if (!res.ok) {
-        throw new Error("Failed to create ticket");
-    }
+  const startingTicketData = {
+    title: "",
+    description: "",
+    priority: 1,
+    progress: 0,
+    status: "not started",
+    category: "Hardware problem",
+  };
 
-    router.refresh()
-    router.push('/')
+  if (EDITMODE) {
+    startingTicketData["title"] = ticket.title;
+    startingTicketData["description"] = ticket.description;
+    startingTicketData["priority"] = ticket.priority;
+    startingTicketData["progress"] = ticket.progress;
+    startingTicketData["status"] = ticket.status;
+    startingTicketData["category"] = ticket.category;
+  }
+
+  const [FormData, setFormData] = useState(startingTicketData);
+
+  const handleChange = (e) => {
+    // e.preventDefault();
+    // const res = await fetch("/api/tickets", {
+    //   method: "POST",
+    //   body: JSON.stringify({ formData }),
+    //   "content-type": "application/json",
+    // });
+
+    // if (!res.ok) {
+    //   throw new Error("Failed to create ticket");
+    // }
+
+    // router.refresh();
+    // router.push("/");
 
     const value = e.target.value;
     const name = e.target.name;
@@ -31,19 +51,42 @@ const TicketForm = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log("submitted");
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const startingTicketData = {
-    title: "",
-    description: "",
-    priority: 1,
-    progress: 0,
-    status: "not started",
-    category: "Hardware problem",
+    if (EDITMODE) {
+      const res = await fetch(`/api/tickets/${ticket._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to update ticket");
+      }
+    } else {
+      const res = await fetch("/api/tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create ticket");
+      }
+    }
+
+    router.refresh();
+    router.push("/");
   };
-  const [FormData, setFormData] = useState(startingTicketData);
+
+  const categories = [
+    "Hardware Problem",
+    "Software Problem",
+    "Application Development",
+    "Project",
+  ];
+
   return (
     <div className="flex justify-center">
       <form
@@ -75,7 +118,13 @@ const TicketForm = () => {
           name="category"
           values={FormData.category}
           onChange={handleChange}
-        ></select>
+        >
+          {categories?.map((category, _index) => (
+            <option key={_index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
         <label>Priority</label>
         <div>
           <input
