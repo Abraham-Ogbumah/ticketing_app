@@ -25,7 +25,7 @@ const TicketForm = ({ ticket }) => {
     startingTicketData["category"] = ticket.category;
   }
 
-  const [FormData, setFormData] = useState(startingTicketData);
+  const [formData, setFormData] = useState(startingTicketData);
 
   const handleChange = (e) => {
     // e.preventDefault();
@@ -102,7 +102,7 @@ const TicketForm = ({ ticket }) => {
           type="text"
           onChange={handleChange}
           required={true}
-          values={FormData.title}
+          values={formData.title}
         />
         <label>Description</label>
         <textarea
@@ -110,13 +110,13 @@ const TicketForm = ({ ticket }) => {
           name="description"
           onChange={handleChange}
           required={true}
-          values={FormData.description}
+          values={formData.description}
           rows="5"
         />
         <label>Category</label>
         <select
           name="category"
-          values={FormData.category}
+          values={formData.category}
           onChange={handleChange}
         >
           {categories?.map((category, _index) => (
@@ -133,7 +133,7 @@ const TicketForm = ({ ticket }) => {
             type="radio"
             onChange={handleChange}
             value={1}
-            checked={FormData.priority === 1}
+            checked={formData.priority == 1}
           />
           <label>1</label>
           <input
@@ -142,7 +142,7 @@ const TicketForm = ({ ticket }) => {
             type="radio"
             onChange={handleChange}
             value={2}
-            checked={FormData.priority === 2}
+            checked={formData.priority == 2}
           />
           <label>2</label>
           <input
@@ -150,8 +150,8 @@ const TicketForm = ({ ticket }) => {
             name="priority"
             type="radio"
             onChange={handleChange}
-            value={1}
-            checked={FormData.priority === 3}
+            value={3}
+            checked={formData.priority == 3}
           />
           <label>3</label>
           <input
@@ -159,8 +159,8 @@ const TicketForm = ({ ticket }) => {
             name="priority"
             type="radio"
             onChange={handleChange}
-            value={1}
-            checked={FormData.priority === 4}
+            value={4}
+            checked={formData.priority == 4}
           />
           <label>4</label>
           <input
@@ -168,8 +168,8 @@ const TicketForm = ({ ticket }) => {
             name="priority"
             type="radio"
             onChange={handleChange}
-            value={1}
-            checked={FormData.priority === 5}
+            value={5}
+            checked={formData.priority == 5}
           />
           <label>5</label>
         </div>
@@ -179,12 +179,12 @@ const TicketForm = ({ ticket }) => {
           name="progress"
           type="range"
           onChange={handleChange}
-          values={FormData.progress}
+          values={formData.progress}
           min="0"
           max="100"
         />
         <label>Status</label>
-        <select name="status" value={FormData.status} onChange={handleChange}>
+        <select name="status" value={formData.status} onChange={handleChange}>
           <option value="not started">Not Started</option>
           <option value="started">Started</option>
           <option value="done">Done</option>
