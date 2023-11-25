@@ -7,7 +7,7 @@ const TicketForm = () => {
     
     const router = useRouter();
   
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
     e.preventDefault();
     const res = await fetch("/api/tickets", {
         method: "POST",
