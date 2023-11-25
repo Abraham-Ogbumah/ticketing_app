@@ -1,4 +1,4 @@
-import Ticket from "../(models)/Ticket";
+import Ticket from "../../(models)/Ticket";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -12,5 +12,14 @@ export async function POST(req) {
     } catch (error) {
         return NextResponse.json({ message: error.message }, { status: 500 });
     
+    }
+}
+
+export async function GET(req) {
+    try {
+        const tickets = await Ticket.find();
+        return NextResponse.json({ message: tickets }, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ message: "Error", error }, { status: 500 });
     }
 }
