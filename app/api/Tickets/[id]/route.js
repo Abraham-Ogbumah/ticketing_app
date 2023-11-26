@@ -13,6 +13,22 @@ export async function GET(req, {params} ) {
     }
 }
 
+export async function PUT(req, {params}) {
+    try {
+        const { id } = params;
+
+        const body = await req.json();
+        const ticketData = body.formData;
+
+        const updateTicketData = await Ticket.findByIdAndUpdate(id, {...ticketData});
+
+        return NextResponse.json({message: "Ticket updated"}, {status: 200})
+
+    } catch (error) {
+        return NextResponse.json({message: "Error", error}, {status: 500})
+    };
+}
+
 export async function DEETE(req, {params} ) {
     try {
         const { id } = params;

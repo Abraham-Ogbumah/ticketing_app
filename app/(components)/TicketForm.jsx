@@ -28,20 +28,6 @@ const TicketForm = ({ ticket }) => {
   const [formData, setFormData] = useState(startingTicketData);
 
   const handleChange = (e) => {
-    // e.preventDefault();
-    // const res = await fetch("/api/tickets", {
-    //   method: "POST",
-    //   body: JSON.stringify({ formData }),
-    //   "content-type": "application/json",
-    // });
-
-    // if (!res.ok) {
-    //   throw new Error("Failed to create ticket");
-    // }
-
-    // router.refresh();
-    // router.push("/");
-
     const value = e.target.value;
     const name = e.target.name;
 
@@ -55,8 +41,11 @@ const TicketForm = ({ ticket }) => {
     e.preventDefault();
 
     if (EDITMODE) {
-      const res = await fetch(`/api/tickets/${ticket._id}`, {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
         method: "PUT",
+        headers: {
+            "Content-type": "application/json",
+        },
         body: JSON.stringify({ formData }),
         "content-type": "application/json",
       });
@@ -65,7 +54,7 @@ const TicketForm = ({ ticket }) => {
         throw new Error("Failed to update ticket");
       }
     } else {
-      const res = await fetch("/api/tickets", {
+      const res = await fetch("/api/Tickets", {
         method: "POST",
         body: JSON.stringify({ formData }),
         "content-type": "application/json",

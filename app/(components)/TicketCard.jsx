@@ -21,6 +21,9 @@ const TicketCard = ({ ticket }) => {
 
     return formattedDate;
   };
+
+  const createdDateTime = formatTimeStamp(ticket.createdAt);
+
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
       <div className="flex mb-3">
@@ -37,7 +40,7 @@ const TicketCard = ({ ticket }) => {
         <div className="flex-grow"></div>
         <div className="flex mt-2">
           <div className="flex flex-col">
-            <p className="text-xs my-1">{formatTimeStamp(ticket.createdAt)}</p>
+            <p className="text-xs my-1">{createdDateTime}</p>
             <ProgressDisplay progress={ticket.progress} />
           </div>
           <div className="ml-auto flex items-end">
