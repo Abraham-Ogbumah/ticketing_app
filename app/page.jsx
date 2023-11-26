@@ -14,13 +14,13 @@ const getTickets = async () => {
 };
 
 const Dashboard = async () => {
-  const data = await getTickets();
+  const { tickets } = await getTickets();
 
-  if (!data?.tickets) {
-    return <p>No ticteks</p>;
-  }
+  // if (!data?.tickets) {
+  //   return <p>No ticteks</p>;
+  // }
 
-  const tickets = data.tickets;
+  // const tickets = data.tickets;
 
   const uniqueCategories = [
     ...new Set(tickets?.map(({ category }) => category)),
@@ -34,12 +34,18 @@ const Dashboard = async () => {
             <div key={categoryIndex} className="mb-4">
               <h2>{uniqueCategory}</h2>
               <div className="lg:grid grid-cols-2 xl:grid-cols-4">
-                {tickets.filter((ticket) => ticket.category === uniqueCategory).map((filteredTicket, _index) => (
-            <TicketCard id={_index} key={_index} ticket={filteredTicket}/>
-            ))}
-          </div>
-        </div>
-        ))}
+                {tickets
+                  .filter((ticket) => ticket.category === uniqueCategory)
+                  .map((filteredTicket, _index) => (
+                    <TicketCard
+                      id={_index}
+                      key={_index}
+                      ticket={filteredTicket}
+                    />
+                  ))}
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

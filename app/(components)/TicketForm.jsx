@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const TicketForm = ({ ticket }) => {
   const EDITMODE = ticket._id === "new" ? false : true;
@@ -43,9 +43,6 @@ const TicketForm = ({ ticket }) => {
     if (EDITMODE) {
       const res = await fetch(`/api/Tickets/${ticket._id}`, {
         method: "PUT",
-        headers: {
-            "Content-type": "application/json",
-        },
         body: JSON.stringify({ formData }),
         "content-type": "application/json",
       });
@@ -64,7 +61,6 @@ const TicketForm = ({ ticket }) => {
         throw new Error("Failed to create ticket");
       }
     }
-
     router.refresh();
     router.push("/");
   };
@@ -91,7 +87,7 @@ const TicketForm = ({ ticket }) => {
           type="text"
           onChange={handleChange}
           required={true}
-          values={formData.title}
+          value={formData.title}
         />
         <label>Description</label>
         <textarea
@@ -99,13 +95,13 @@ const TicketForm = ({ ticket }) => {
           name="description"
           onChange={handleChange}
           required={true}
-          values={formData.description}
+          value={formData.description}
           rows="5"
         />
         <label>Category</label>
         <select
           name="category"
-          values={formData.category}
+          value={formData.category}
           onChange={handleChange}
         >
           {categories?.map((category, _index) => (
@@ -168,7 +164,7 @@ const TicketForm = ({ ticket }) => {
           name="progress"
           type="range"
           onChange={handleChange}
-          values={formData.progress}
+          value={formData.progress}
           min="0"
           max="100"
         />

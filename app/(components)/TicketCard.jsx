@@ -1,9 +1,10 @@
+import Link from "next/link";
 import React from "react";
 import DeleteBlock from "./DeleteBlock";
 import PriorityDisplay from "./PriorityDisplay";
 import ProgressDisplay from "./ProgressDisplay";
 import StatusDisplay from "./StatusDisplay";
-import Link from "next/link";
+
 
 const TicketCard = ({ ticket }) => {
   const formatTimeStamp = (timestamp) => {
@@ -40,7 +41,7 @@ const TicketCard = ({ ticket }) => {
         <div className="flex-grow"></div>
         <div className="flex mt-2">
           <div className="flex flex-col">
-            <p className="text-xs my-1">{createdDateTime}</p>
+            <p className="text-xs my-1">{formatTimeStamp(ticket.createdAt)}</p>
             <ProgressDisplay progress={ticket.progress} />
           </div>
           <div className="ml-auto flex items-end">
