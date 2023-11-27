@@ -1,7 +1,7 @@
 import TicketForm from "@/app/(components)/TicketForm"
 
 const getTicketById = async (id) => {
-    const res = await fetch(process.env.URL +`/api/Tickets/${id}`, {
+    const res = await fetch(process.env.URL+`/api/Tickets/${id}`, {
       cache: "no-store"
     })
 
