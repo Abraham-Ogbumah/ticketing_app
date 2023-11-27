@@ -16,6 +16,10 @@ const getTickets = async () => {
 const Dashboard = async () => {
   const { tickets } = await getTickets();
 
+  if (!process.env.NEXT_PUBLIC_BASE_API_URL) {
+    return null;
+  }
+
   // if (!data?.tickets) {
   //   return <p>No ticteks</p>;
   // }
