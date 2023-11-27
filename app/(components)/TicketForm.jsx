@@ -41,7 +41,7 @@ const TicketForm = ({ ticket }) => {
     e.preventDefault();
 
     if (EDITMODE) {
-      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/Tickets/${ticket._id}`, {
         method: "PUT",
         body: JSON.stringify({ formData }),
         headers: {
